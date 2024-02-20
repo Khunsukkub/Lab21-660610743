@@ -52,22 +52,20 @@ class Unit{
 };
 
 void Unit::equip(Equipment *things){
-	vector<int> stats = things->getStat();
+	//re-code by Khun
+	vector<int> newstats = things->getStat();
 	if(equipment == NULL){
-		hpmax = hpmax+stats[0];
-		atk = atk+stats[1];
-		def = def+stats[2];
-
-		//my code
-	} else{
-		vector<int> temp = equipment->getStat();
-
-		hpmax += (stats[0]-temp[0]);
-		if(hpmax < hp) hp = hpmax;
-		atk += (stats[1]-temp[1]);
-		def += (stats[2]-temp[2]);
-
+		hpmax += newstats[0];
+		atk += newstats[1];
+		def += newstats[2];
 	}
+	else{
+		vector<int> paststats = equipment->getStat();
+		hpmax += (newstats[0]-paststats[0]);
+		atk += (newstats[1]-paststats[1]);
+		def += (newstats[2]-paststats[2]);
+	}
+	if(hp > hpmax) hp = hpmax;
 	equipment = things;
 }
 
